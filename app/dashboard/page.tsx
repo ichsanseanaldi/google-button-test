@@ -35,6 +35,22 @@ export default function Dashboard() {
     getUser();
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("/api/auth/logout", {
+        method: "POST",
+      });
+
+      if (!res.ok) {
+        throw new Error("Logout failed");
+      }
+
+      window.location.replace("/");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+
   if (loading) return <p>Loading...</p>;
 
   if (!user) return null;
@@ -44,6 +60,7 @@ export default function Dashboard() {
       <h1>Welcome, {user.name}!</h1>
       <p>Email: {user.email}</p>
       <p>ID: {user.id}</p>
+      <button onClick={handleLogout}>Logout</button>
     </main>
   );
 }
