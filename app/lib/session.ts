@@ -1,5 +1,6 @@
 import { SignJWT } from "jose";
 import { NextResponse } from "next/server";
+import { jwtVerify } from "jose";
 
 const secret = new TextEncoder().encode(
   process.env.SESSION_SECRET!
@@ -26,4 +27,14 @@ export async function createSession(
     path: "/",
     maxAge: 60 * 60 * 24 * 7,
   });
+}
+
+
+export async function verifySession(token: string) {
+  try {
+    const { payload } = await jwtVerify(token, secret);
+    return payload;
+  } catch {
+    return null;
+  }
 }
