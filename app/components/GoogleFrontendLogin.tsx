@@ -12,6 +12,7 @@ declare global {
 
 export default function GoogleFrontendLogin() {
   const isTikTokInAppBrowser = typeof window !== "undefined" && detectSourceFromUserAgent() === "TikTok";
+    
   const initializeGoogle = () => {
     if (!window.google) return;
 
@@ -49,10 +50,11 @@ export default function GoogleFrontendLogin() {
     );
   };
 
-  if(isTikTokInAppBrowser) return <div>In-App tiktok detected. Button is Hidden</div>
 
   return (
-    <>
+    <div>
+      <p>user agent: {detectSourceFromUserAgent() || "-"}</p>
+      <p>isTiktokInAppBrowser: {isTikTokInAppBrowser ? "true" : "false"}</p>
       <Script
         src="https://accounts.google.com/gsi/client"
         strategy="afterInteractive"
@@ -60,6 +62,6 @@ export default function GoogleFrontendLogin() {
       />
 
       <div id="google-login" />
-    </>
+    </div>
   );
 }
