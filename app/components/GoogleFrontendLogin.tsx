@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import Script from "next/script";
+import { detectSourceFromUserAgent } from "../lib/utils";
 
 declare global {
   interface Window {
@@ -10,6 +11,7 @@ declare global {
 }
 
 export default function GoogleFrontendLogin() {
+  const isTikTokInAppBrowser = typeof window !== "undefined" && detectSourceFromUserAgent() === "TikTok";
   const initializeGoogle = () => {
     if (!window.google) return;
 
@@ -46,6 +48,8 @@ export default function GoogleFrontendLogin() {
       }
     );
   };
+
+  if(isTikTokInAppBrowser) return <div>In-App tiktok detected. Button is Hidden</div>
 
   return (
     <>
