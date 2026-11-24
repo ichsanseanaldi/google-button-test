@@ -54,6 +54,7 @@ export default function GoogleFrontendLogin() {
   return (
     <div>
       <p>user agent: {detectSourceFromUserAgent() || "-"}</p>
+      <p>user agent: {navigator.userAgent}</p>
       <p>isTiktokInAppBrowser: {isTikTokInAppBrowser ? "true" : "false"}</p>
       <Script
         src="https://accounts.google.com/gsi/client"
